@@ -1,186 +1,175 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>ワールドエリア管理補助ツール 説明書</title>
   <style>
     :root {
       --bg: #0f1115;
       --panel: #171a21;
-      --text: #eef2f7;
-      --muted: #b6c0cf;
+      --text: #e8ecf3;
+      --muted: #b8c0cc;
       --line: #2a3140;
-      --accent: #8ec5ff;
+      --accent: #88b7ff;
+      --code: #11151d;
     }
     * { box-sizing: border-box; }
     body {
       margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans", "Yu Gothic UI", sans-serif;
-      background: linear-gradient(180deg, #0d1016 0%, #121722 100%);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
       color: var(--text);
       line-height: 1.75;
     }
     .wrap {
-      max-width: 980px;
+      max-width: 920px;
       margin: 0 auto;
-      padding: 32px 20px 56px;
+      padding: 40px 20px 80px;
     }
-    .hero {
-      background: rgba(255,255,255,0.03);
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      padding: 28px;
-      margin-bottom: 22px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
-    }
+    h1, h2, h3 { line-height: 1.35; }
     h1 {
-      margin: 0 0 8px;
-      font-size: 32px;
-      line-height: 1.2;
+      font-size: 2rem;
+      margin: 0 0 20px;
     }
+    h2 {
+      margin-top: 44px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--line);
+      font-size: 1.45rem;
+    }
+    h3 {
+      margin-top: 28px;
+      font-size: 1.1rem;
+      color: var(--accent);
+    }
+    p { margin: 12px 0; }
+    ul {
+      margin: 10px 0 10px 1.2em;
+      padding: 0;
+    }
+    li { margin: 8px 0; }
     .lead {
-      margin: 0;
       color: var(--muted);
-      font-size: 15px;
     }
     .card {
       background: var(--panel);
       border: 1px solid var(--line);
-      border-radius: 18px;
-      padding: 24px;
-      margin-top: 18px;
-      box-shadow: 0 10px 24px rgba(0,0,0,0.2);
-    }
-    h2 {
-      margin: 0 0 4px;
-      font-size: 24px;
-      color: var(--accent);
-    }
-    .sub {
-      margin: 0 0 18px;
-      color: var(--muted);
-      font-size: 14px;
-    }
-    h3 {
-      margin: 18px 0 8px;
-      font-size: 17px;
-    }
-    ul {
-      margin: 8px 0 0 0;
-      padding-left: 1.2em;
-    }
-    li { margin: 6px 0; }
-    .note {
-      margin-top: 18px;
-      padding: 14px 16px;
-      border-radius: 12px;
-      background: rgba(255,255,255,0.035);
-      border: 1px solid var(--line);
-      color: var(--muted);
-      font-size: 14px;
+      border-radius: 14px;
+      padding: 18px 18px;
+      margin: 16px 0;
     }
     code {
-      background: rgba(255,255,255,0.06);
-      padding: 2px 6px;
-      border-radius: 6px;
+      background: var(--code);
+      border: 1px solid var(--line);
+      padding: 0.15em 0.45em;
+      border-radius: 8px;
       font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-      color: #fff;
+      font-size: 0.95em;
+    }
+    .mono-block {
+      background: var(--code);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 14px 16px;
+      white-space: pre-wrap;
+      margin: 12px 0;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
     }
   </style>
 </head>
 <body>
   <div class="wrap">
-    <section class="hero">
-      <h1>ワールドエリア管理補助ツール 説明書</h1>
-      <p class="lead">Unity初心者向けに、できるだけ難しい言葉を使わずにまとめた説明書です。必要な設定は、各機能ごとに見れば使える形にしてあります。</p>
-    </section>
+    <h1>ワールドエリア管理補助ツール 説明書</h1>
+    <p class="lead">Unity初心者向けに、できるだけ難しい言葉を使わずにまとめた説明書です。必要な設定は、各機能ごとに見れば使える形にしてあります。</p>
 
-    <section class="card">
-      <h2>保護エリア指定機能</h2>
-      <p class="sub">AreaProtectionController</p>
-      <p>見せたくない場所に視点が入った時に、警告を出したり、必要なら別の場所へ移動させたりできる機能です。</p>
+    <h2>保護エリア指定機能</h2>
+    <p><strong>AreaProtectionController</strong></p>
+    <p>見せたくない場所に視点が入った時に、警告を出したり、必要なら別の場所へ移動させたりできる機能です。あわせて、ドローンやフォトカメラで見せたくない場所を覗こうとした時の対策にも対応しています。</p>
 
-      <h3>できること</h3>
-      <ul>
-        <li>見せたくない場所に入った時だけ警告を出せます</li>
-        <li>必要なら、少し待ってから別の場所へ移動させられます</li>
-        <li>許可エリア・拒否エリア・何も設定していない場所を分けて使えます</li>
-      </ul>
+    <h3>できること</h3>
+    <ul>
+      <li>見せたくない場所に入った時だけ警告を出せます</li>
+      <li>必要なら、少し待ってから別の場所へ移動させられます</li>
+      <li>許可エリア・拒否エリア・何も設定していない場所を分けて使えます</li>
+      <li>拒否エリアに入ったドローンを、持ち主の近くへ戻せます</li>
+      <li>拒否エリアに入ったフォトカメラを遮蔽して、警告を出せます</li>
+    </ul>
 
-      <h3>使い方</h3>
-      <ul>
-        <li><code>許可エリア一覧</code> に、見えてよい場所のコライダーを入れます</li>
-        <li><code>拒否エリア一覧</code> に、見えてはいけない場所のコライダーを入れます</li>
-        <li><code>未設定エリアを拒否扱いにする</code> をオンにすると、何も設定していない場所も危険扱いになります</li>
-        <li><code>拒否エリア侵入時の処理</code> は数字で選びます</li>
-      </ul>
+    <h3>使い方</h3>
+    <ul>
+      <li><code>許可エリア一覧</code> に、見えてよい場所のコライダーを入れます</li>
+      <li><code>拒否エリア一覧</code> に、見えてはいけない場所のコライダーを入れます</li>
+      <li><code>未設定エリアを拒否扱いにする</code> をオンにすると、何も設定していない場所も危険扱いになります</li>
+      <li><code>拒否エリア侵入時の処理</code> は数字で選びます</li>
+    </ul>
 
-      <div class="note">
-        0 = 警告のみ<br>
-        1 = 警告の後強制転送<br>
-        2 = 警告なしで強制転送
-      </div>
+    <div class="mono-block">0 = 警告のみ
+1 = 警告の後強制転送
+2 = 警告なしで強制転送</div>
 
-      <h3>覚えておくこと</h3>
-      <ul>
-        <li>許可エリアと拒否エリアが重なった場合は、拒否エリアが優先されます</li>
-        <li>許可エリアは少し広めに作ると使いやすいです</li>
-        <li>警告表示は、最初は非表示のままで問題ありません</li>
-      </ul>
-    </section>
+    <div class="card">
+      <p><strong>追加で使える項目</strong></p>
+      <p><code>ドローンはプレイヤーの手元に戻す</code><br>拒否エリアに入ったドローンを、そのドローンを飛ばしているプレイヤーの近くへ戻します。</p>
+      <p><code>フォトカメラを遮蔽して警告を出す</code><br>拒否エリア侵入中、フォトカメラを遮蔽して警告を出します。自分以外のアバターと同一レイヤーに設定しているため、カメラのマスク機能でも回避できません。</p>
+    </div>
 
-    <section class="card">
-      <h2>接触時強制テレポート機能</h2>
-      <p class="sub">TouchTeleportManager &amp; TouchTeleportRelay</p>
-      <p>指定した場所に触れたら、決めた場所へ移動させる機能です。</p>
+    <h3>覚えておくこと</h3>
+    <ul>
+      <li>許可エリアと拒否エリアが重なった場合は、拒否エリアが優先されます</li>
+      <li>許可エリアは少し広めに作ると使いやすいです</li>
+      <li>警告表示は、最初は非表示のままで問題ありません</li>
+      <li>フォトカメラ遮蔽用の黒板と文字は、同じ位置に重ねず少し前後にずらして配置すると表示が安定しやすいです</li>
+      <li>ドローン返送を使う時は、拒否エリアの配置が広すぎると戻した先も拒否扱いになりやすいので注意してください</li>
+    </ul>
 
-      <h3>できること</h3>
-      <ul>
-        <li>見えない壁に触れたら、別の場所へ移動させられます</li>
-        <li>複数の壁を、1つの行き先にまとめられます</li>
-        <li>連続で何度も飛ばされるのを防げます</li>
-      </ul>
+    <h2>接触時強制テレポート機能</h2>
+    <p><strong>TouchTeleportManager &amp; TouchTeleportRelay</strong></p>
+    <p>指定した場所に触れたら、決めた場所へ移動させる機能です。</p>
 
-      <h3>使い方</h3>
-      <ul>
-        <li>管理用オブジェクト <code>接触時強制テレポート機能</code> の <code>転送先</code> に、飛ばしたい先に置いたオブジェクトを入れます</li>
-        <li><code>強制転送先</code> が最初から入っているので、必要ならそのオブジェクトを好きな場所へ移動して使ってください</li>
-        <li>壁側の <code>接触判定Collider(複製可)</code> には、触れたことを管理用オブジェクトへ伝える設定があらかじめ入っています</li>
-        <li>そのため、複製して配置するだけで使えます</li>
-      </ul>
+    <h3>できること</h3>
+    <ul>
+      <li>見えない壁に触れたら、別の場所へ移動させられます</li>
+      <li>複数の壁を、1つの行き先にまとめられます</li>
+      <li>連続で何度も飛ばされるのを防げます</li>
+    </ul>
 
-      <h3>覚えておくこと</h3>
-      <ul>
-        <li>壁は少し厚みを持たせると安定しやすいです</li>
-        <li>複数の壁から同じ行き先へ飛ばしたい時に便利です</li>
-      </ul>
-    </section>
+    <h3>使い方</h3>
+    <ul>
+      <li>管理用オブジェクト <code>接触時強制テレポート機能</code> の <code>転送先</code> に、飛ばしたい先に置いたオブジェクトを入れます</li>
+      <li><code>強制転送先</code> が最初から入っているので、必要ならそのオブジェクトを好きな場所へ移動して使ってください</li>
+      <li>壁側の <code>接触判定Collider(複製可)</code> には、触れたことを管理用オブジェクトへ伝える設定があらかじめ入っています</li>
+      <li>そのため、複製して配置するだけで使えます</li>
+    </ul>
 
-    <section class="card">
-      <h2>アバターサイズ制限機能</h2>
-      <p class="sub">AvatarSizeLimiter</p>
-      <p>アバターの大きさを、決めた範囲におさめる機能です。</p>
+    <h3>覚えておくこと</h3>
+    <ul>
+      <li>壁は少し厚みを持たせると安定しやすいです</li>
+      <li>複数の壁から同じ行き先へ飛ばしたい時に便利です</li>
+    </ul>
 
-      <h3>できること</h3>
-      <ul>
-        <li>ワールド製作者の意図を超えて、アバターサイズを変えすぎるのを防げます</li>
-        <li>必要なら、自動でちょうどいい範囲に戻せます</li>
-      </ul>
+    <h2>アバターサイズ制限機能</h2>
+    <p><strong>AvatarSizeLimiter</strong></p>
+    <p>アバターの大きさを、決めた範囲におさめる機能です。</p>
 
-      <h3>使い方</h3>
-      <ul>
-        <li><code>アバターサイズ制限機能</code> の設定から、<code>最小目線高メートル</code> と <code>最大目線高メートル</code> を決めます</li>
-        <li>自動で範囲内に戻したい時は、<code>範囲外なら自動補正する</code> をオンにします</li>
-        <li>手動でサイズ変更させたくない時は、<code>手動スケーリングを禁止する</code> をオンにします</li>
-      </ul>
+    <h3>できること</h3>
+    <ul>
+      <li>ワールド製作者の意図を超えて、アバターサイズを変えすぎるのを防げます</li>
+      <li>必要なら、自動でちょうどいい範囲に戻せます</li>
+    </ul>
 
-      <h3>覚えておくこと</h3>
-      <ul>
-        <li>最初は、ワールド参加時に自動で設定されます</li>
-        <li>アバターを変えた時も、自動で再チェックされます</li>
-      </ul>
-    </section>
+    <h3>使い方</h3>
+    <ul>
+      <li><code>アバターサイズ制限機能</code> の設定から、<code>最小目線高メートル</code> と <code>最大目線高メートル</code> を決めます</li>
+      <li>自動で範囲内に戻したい時は、<code>範囲外なら自動補正する</code> をオンにします</li>
+      <li>手動でサイズ変更させたくない時は、<code>手動スケーリングを禁止する</code> をオンにします</li>
+    </ul>
+
+    <h3>覚えておくこと</h3>
+    <ul>
+      <li>最初は、ワールド参加時に自動で設定されます</li>
+      <li>アバターを変えた時も、自動で再チェックされます</li>
+    </ul>
   </div>
 </body>
 </html>
